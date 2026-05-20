@@ -2,7 +2,28 @@
 
 1. Download de Laatste Release ZIP file.
 2. Extract de folder naar dezelfde map waar de *main* file zich bevind.
-3. Voeg deze lijn toe:
+3. Run de `create_schema.sql` als de `nova_pets.db` faalt
+4. Zorg dat de dir er zo uitziet
+```
+project_root/
+│
+├── main.py
+├── nova_pets.db
+│
+├── db_handler/
+│   ├── __init__.py
+│   ├── connection.py
+│   ├── syslog.py
+│   │
+│   ├── models/
+│       ├── __init__.py
+│       ├── pet.py
+│       ├── user.py
+│       └── etc...
+|
+└── requirements.txt
+```
+6. Voeg deze lijn toe:
 ```python
 from db_handler.models import user, pets, inventory, items, variants
 ```
