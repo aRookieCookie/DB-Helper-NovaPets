@@ -1,0 +1,70 @@
+:root {
+    --text: #f3ede8;
+    --background: #0e0a06;
+    --primary: #dcb798;
+    --secondary: #7f4c22;
+    --accent: #d78039;
+}
+
+sidebar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 16rem;
+    height: 100%;
+    padding: 8px;
+    overflow-y: auto;
+
+    background-color: var(--background);
+    border-right: 1px solid gray;
+
+
+}
+
+
+.links a{
+    text-decoration: none;
+    color: inherit;
+    font-size: 1.5rem
+}
+
+.links a:hover{text-shadow: 0px 0px 10px var(--text)}
+
+sidebar p{
+
+    max-height: 2.6rem;
+    font-size: 2rem;
+
+    overflow: hidden;
+
+    transition: max-height 1s ease-in-out;
+}
+
+sidebar h1{
+    width: 100%;
+    text-align: center;
+}
+
+sidebar p:hover {
+    max-height: 30rem;
+
+}
+
+sidebar hr{border-color: gray;}
+sidebar .links{padding-bottom: 6rem}
+
+.github-banner {
+    width:16rem;
+    border-radius: 8px;
+    position: fixed;
+    bottom: 1rem;
+    left: 8px;
+}
+
+sidebar::-webkit-scrollbar {
+    display: none;
+}
+sidebar{
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}

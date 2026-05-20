@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DB Handler Documentation</title>
+    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+<sidebar>
+    <h1>Documentatie</h1>
+    <hr>
+    <div class="links">
+            <p id="side-user"><b>Users</b><br>
+                <a href="user/create.html" class="side-link">> Create User</a><br>
+                <a href="user/delete.html" class="side-link">> Delete User</a><br>
+                <a href="user/verify.html" class="side-link">> Verify User</a><br>
+                <a href="user/change.html" class="side-link">> Change Password</a>
+                <a href="user/get.html" class="side-link">> Get User</a>
+            </p>
+
+            <p id="side-pets-dyn"><b>Pets</b><br>
+                <a href="pet/create.html" class="side-link">> Create New Pet</a><br>
+                <a href="pet/get_status.html" class="side-link">> Get Pet Status</a><br>
+                <a href="pet/set_status.html" class="side-link">> Set Pet Status</a><br>
+                <a href="pet/delete.html" class="side-link">> Delete Pet</a><br>
+                <a href="pet/get_all.html" class="side-link">> Get All Pets</a><br>
+            </p>
+
+            <p id="side-pets-stat"><b>Pet Variants</b><br>
+                <a href="variant/create.html" class="side-link">> Create New Variant</a><br>
+                <a href="variant/get_variant.html" class="side-link">> Get Variant Stats</a><br>
+                <a href="variant/delete.html" class="side-link">> Delete Variant</a><br>
+            </p>
+
+            <p id="side-inventory"><b>Inventory</b><br>
+                <a href="inventory/add.html" class="side-link">> Add Item</a><br>
+                <a href="inventory/edit_quantity.html" class="side-link">> Edit Quantity</a><br>
+                <a href="inventory/delete.html" class="side-link">> Delete Item</a><br>
+                <a href="inventory/get_inv.html" class="side-link">> Get Inventory</a><br>
+            </p>
+
+            <p id="side-items"><b>Items</b><br>
+                <a href="item/create.html" class="side-link">> Create New Item</a><br>
+                <a href="item/delete.html" class="side-link">> Delete Item</a><br>
+                <a href="item/get.html" class="side-link">> Get Item Info</a><br>
+                <a href="item/edit.html" class="side-link">> Edit Item Info</a><br>
+            </p>
+
+        <p id="side-items"><b>Extra</b><br>
+            <a href="extra/boilerplate.html" class="side-link">> Boilerplate Classes</a><br>
+        </p>
+    </div>
+</sidebar>
+<a href="https://github.com/rydbyte/Nova-Pets" target="_blank">
+    <img alt="Logo for Github Repo" src="github.png" class="github-banner">
+</a>
+<main>
+    <div class="grid-wrapper">
+        <div class="grid1">
+            <h2>Database <div style="display: inline; color: #d78039">Structuur</div></h2>
+            <p>De <code style="color: #dcb798">db_helper.py</code> functioneert als package, om een interface the generen tussen Flask en de database. Hieronder staan de geplande functies en bijbehorende verantwoordelijkheden.</p>
+        </div>
+
+        <!-- USERS TABLE -->
+        <div class="grid2">
+            <h2>Users</h2>
+            <table style="width:100%; border-collapse: collapse;">
+                <tr>
+                    <th class="th-column">Column</th>
+                    <th class="th-type">Type</th>
+                    <th class="th-description">Description</th>
+                </tr>
+                <tr>
+                    <td>ID</td>
+                    <td>INTEGER PRIMARY KEY</td>
+                    <td>Unieke speler identificatie</td>
+                </tr>
+                <tr>
+                    <td>username</td>
+                    <td>TEXT UNIQUE</td>
+                    <td>Gebruikersnaam</td>
+                </tr>
+                <tr>
+                    <td>password_hash</td>
+                    <td>TEXT</td>
+                    <td>Gehashte wachtwoord</td>
+                </tr>
+                <tr>
+                    <td>created_at</td>
+                    <td>TEXT</td>
+                    <td>Account aanmaak datum</td>
+                </tr>
+            </table>
+            <p><strong>Type:</strong> Dynamisch</p>
+        </div>
+
+        <!-- PETS TABLE -->
+        <div class="grid3">
+            <h2>Pets</h2>
+            <table style="width:100%; border-collapse: collapse;">
+                <tr>
+                    <th class="th-column">Column</th>
+                    <th class="th-type">Type</th>
+                    <th class="th-description">Description</th>
+                </tr>
+                <tr>
+                    <td>ID</td>
+                    <td>INTEGER PRIMARY KEY</td>
+                    <td>Unieke pet identificatie</td>
+                </tr>
+                <tr>
+                    <td>owner_id</td>
+                    <td>INTEGER</td>
+                    <td>Verwijzing naar Users.ID</td>
+                </tr>
+                <tr>
+                    <td>docent_id</td>
+                    <td>INTEGER</td>
+                    <td>Verwijzing naar Stats.ID (pet variant)</td>
+                </tr>
+                <tr>
+                    <td>health</td>
+                    <td>INTEGER</td>
+                    <td>Huidige gezondheid</td>
+                </tr>
+                <tr>
+                    <td>dorst</td>
+                    <td>INTEGER</td>
+                    <td>Dorst niveau (0-100)</td>
+                </tr>
+                <tr>
+                    <td>honger</td>
+                    <td>INTEGER</td>
+                    <td>Honger niveau (0-100)</td>
+                </tr>
+                <tr>
+                    <td>temp</td>
+                    <td>REAL</td>
+                    <td>Temperatuur</td>
+                </tr>
+                <tr>
+                    <td>age</td>
+                    <td>INTEGER</td>
+                    <td>Leeftijd</td>
+                </tr>
+                <tr>
+                    <td>mood</td>
+                    <td>INTEGER</td>
+                    <td>Mood niveau (0-100)</td>
+                </tr>
+                <tr>
+                    <td>last_seen</td>
+                    <td>TEXT</td>
+                    <td>Laatst gezien timestamp</td>
+                </tr>
+            </table>
+            <p><strong>Type:</strong> Dynamisch</p>
+        </div>
+
+        <!-- STATS TABLE -->
+        <div class="grid4">
+            <h2>Stats</h2>
+            <table style="width:100%; border-collapse: collapse;">
+                <tr>
+                    <th class="th-column">Column</th>
+                    <th class="th-type">Type</th>
+                    <th class="th-description">Description</th>
+                </tr>
+                <tr>
+                    <td>ID</td>
+                    <td>INTEGER PRIMARY KEY</td>
+                    <td>Unieke stat identificatie</td>
+                </tr>
+                <tr>
+                    <td>naam</td>
+                    <td>TEXT</td>
+                    <td>Naam van de docent/variant</td>
+                </tr>
+                <tr>
+                    <td>max_health</td>
+                    <td>INTEGER</td>
+                    <td>Maximum gezondheid</td>
+                </tr>
+                <tr>
+                    <td>fortitude_multi</td>
+                    <td>REAL</td>
+                    <td>Fortitude multiplier</td>
+                </tr>
+                <tr>
+                    <td>mood_multi</td>
+                    <td>REAL</td>
+                    <td>Mood multiplier</td>
+                </tr>
+                <tr>
+                    <td>thurst_multi</td>
+                    <td>REAL</td>
+                    <td>Dorst multiplier</td>
+                </tr>
+                <tr>
+                    <td>hunger_multi</td>
+                    <td>REAL</td>
+                    <td>Honger multiplier</td>
+                </tr>
+            </table>
+            <p><strong>Type:</strong> Statisch (base stats voor pet varianten)</p>
+        </div>
+
+        <!-- ITEMS TABLE -->
+        <div class="grid5">
+            <h2>Items</h2>
+            <table style="width:100%; border-collapse: collapse;">
+                <tr>
+                    <th class="th-column">Column</th>
+                    <th class="th-type">Type</th>
+                    <th class="th-description">Description</th>
+                </tr>
+                <tr>
+                    <td>ID</td>
+                    <td>INTEGER PRIMARY KEY</td>
+                    <td>Unieke item identificatie</td>
+                </tr>
+                <tr>
+                    <td>naam</td>
+                    <td>TEXT</td>
+                    <td>Naam van het item</td>
+                </tr>
+                <tr>
+                    <td>type</td>
+                    <td>TEXT</td>
+                    <td>Item categorie (food, drink, etc.)</td>
+                </tr>
+                <tr>
+                    <td>health_effect</td>
+                    <td>INTEGER</td>
+                    <td>Effect op gezondheid</td>
+                </tr>
+                <tr>
+                    <td>hunger_effect</td>
+                    <td>INTEGER</td>
+                    <td>Effect op honger</td>
+                </tr>
+                <tr>
+                    <td>dorst_effect</td>
+                    <td>INTEGER</td>
+                    <td>Effect op dorst</td>
+                </tr>
+                <tr>
+                    <td>description</td>
+                    <td>TEXT</td>
+                    <td>Beschrijving van het item</td>
+                </tr>
+            </table>
+            <p><strong>Type:</strong> Statisch (item definities)</p>
+        </div>
+
+        <!-- INVENTORY TABLE -->
+        <div class="grid6">
+            <h2>Inventory</h2>
+            <table style="width:100%; border-collapse: collapse;">
+                <tr>
+                    <th class="th-column">Column</th>
+                    <th class="th-type">Type</th>
+                    <th class="th-description">Description</th>
+                </tr>
+                <tr>
+                    <td>ID</td>
+                    <td>INTEGER PRIMARY KEY</td>
+                    <td>Unieke inventory entry</td>
+                </tr>
+                <tr>
+                    <td>player_id</td>
+                    <td>INTEGER</td>
+                    <td>Verwijzing naar Users.ID</td>
+                </tr>
+                <tr>
+                    <td>item_id</td>
+                    <td>INTEGER</td>
+                    <td>Verwijzing naar Items.ID</td>
+                </tr>
+                <tr>
+                    <td>quantity</td>
+                    <td>INTEGER</td>
+                    <td>Aantal items</td>
+                </tr>
+                <tr>
+                    <td>obtained_on</td>
+                    <td>TEXT</td>
+                    <td>Verkrijg datum</td>
+                </tr>
+            </table>
+            <p><strong>Type:</strong> Dynamisch</p>
+        </div>
+
+
+    </div>
+</main>
+
+
+</body>
+</html>

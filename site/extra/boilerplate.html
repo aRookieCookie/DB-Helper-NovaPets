@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DB Handler Documentation</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../sidebar.css">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../home.css"
+</head>
+<body>
+
+<sidebar>
+    <a href="../index.html" style="text-decoration:none; color: inherit;">
+        <h1>Documentatie</h1>
+    </a>
+
+    <hr>
+    <div class="links">
+        <p id="side-user"><b>Users</b><br>
+            <a href="../user/create.html" class="side-link">> Create User</a><br>
+            <a href="../user/delete.html" class="side-link">> Delete User</a><br>
+            <a href="../user/verify.html" class="side-link">> Verify User</a><br>
+            <a href="../user/change.html" class="side-link">> Change Password</a>
+            <a href="../user/get.html" class="side-link">> Get User</a>
+        </p>
+
+        <p id="side-pets-dyn"><b>Pets</b><br>
+            <a href="../pet/create.html" class="side-link">> Create New Pet</a><br>
+            <a href="../pet/get_status.html" class="side-link">> Get Pet Status</a><br>
+            <a href="../pet/set_status.html" class="side-link">> Set Pet Status</a><br>
+            <a href="../pet/delete.html" class="side-link">> Delete Pet</a><br>
+            <a href="../pet/get_all.html" class="side-link">> Get All Pets</a><br>
+        </p>
+
+        <p id="side-pets-stat"><b>Pet Variants</b><br>
+            <a href="../variant/create.html" class="side-link">> Create New Variant</a><br>
+            <a href="../variant/get_variant.html" class="side-link">> Get Variant Stats</a><br>
+            <a href="../variant/delete.html" class="side-link">> Delete Variant</a><br>
+        </p>
+
+        <p id="side-inventory"><b>Inventory</b><br>
+            <a href="../inventory/add.html" class="side-link">> Add Item</a><br>
+            <a href="../inventory/edit_quantity.html" class="side-link">> Edit Quantity</a><br>
+            <a href="../inventory/delete.html" class="side-link">> Delete Item</a><br>
+            <a href="../inventory/get_inv.html" class="side-link">> Get Inventory</a><br>
+        </p>
+
+        <p id="side-items"><b>Items</b><br>
+            <a href="../item/create.html" class="side-link">> Create New Item</a><br>
+            <a href="../item/delete.html" class="side-link">> Delete Item</a><br>
+            <a href="../item/get.html" class="side-link">> Get Item Info</a><br>
+            <a href="../item/edit.html" class="side-link">> Edit Item Info</a><br>
+        </p>
+
+        <p id="side-items"><b>Extra</b><br>
+            <a href="../extra/boilerplate.html" class="side-link">> Boilerplate Classes</a><br>
+        </p>
+    </div>
+</sidebar>
+<a href="https://github.com/rydbyte/Nova-Pets" target="_blank">
+    <img alt="Logo for Github Repo" src="../github.png" class="github-banner">
+</a>
+
+<main>
+<h1 class="accent-color">Boilerplate Classes</h1>
+    Boilerplate classes worden gebruikt als makkelijke manier van data manipulatie.<br>
+    <hr>
+
+    <h3>Example</h3>
+    <h5>Create Class</h5>
+    <pre><code class="language-python">
+class dummy:
+    def __init__(self, id, name):
+        self.id = id
+        self.name = name
+
+    def scream():
+        print("Aaaaargh!")
+    </code></pre>
+
+    <hr class="thin">
+
+    <h5>Instantiate Class</h5>
+    <pre><code class="language-python">
+obj = dummy(id=1, name="John Doe")
+    </code></pre>
+
+    <hr class="thin">
+
+    <h5>Access Attributes</h5>
+    <pre><code class="language-python">
+print(obj.id)  # Output: 1
+print(obj.name)  # Output: John Doe
+    </code></pre>
+
+    <hr class="thin">
+
+    <h5>Use in Functions</h5>
+    <pre><code class="language-python">
+obj.scream()  # Output: Aaaaargh!
+    </code></pre>
+
+    <hr>
+    <h2>Boilerplates</h2>
+
+    <details>
+        <summary>User Plate</summary>
+        <pre><code class="language-python">
+class User:
+    def __init__(self, id, username, password, created_at):
+        self.id = id
+        self.username = username
+        self.password = password
+        self.created_at = created_at
+        </code></pre>
+    </details>
+
+    <details>
+        <summary>Pet Plate</summary>
+        
+        <pre><code class="language-python">
+class Pet:
+    def __init__(self, id, owner_id, docent_id, health, thirst, hunger, temp, age, mood, last_seen, naam, max_health, fortitude_multiplier, mood_multiplier, thirst_multiplier, hunger_multiplier):
+        self.id = id
+        self.owner_id = owner_id
+        self.docent_id = docent_id
+        self.health = health
+        self.thirst = thirst
+        self.hunger = hunger
+        self.temp = temp
+        self.age = age
+        self.mood = mood
+        self.last_seen = last_seen
+        self.naam = naam
+        self.max_health = max_health
+        self.fortitude_multiplier = fortitude_multiplier
+        self.mood_multiplier = mood_multiplier
+        self.thirst_multiplier = thirst_multiplier
+        self.hunger_multiplier = hunger_multiplier
+
+    #KILL PET
+    def kill(self):
+        conn = get_connection()
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM pets WHERE id = ?", (self.id,))
+        conn.commit()
+        conn.close()
+        print(log.SUCCESS_DATA_DELETED)
+        </code></pre>
+        <details class="indent">
+            <summary>Functions</summary>
+                <table>
+                    <tr>
+                        <th>Function</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td><code>.kill()</code></td>
+                            <td>Verwijdert de pet uit de database.</td>
+                    </tr>
+                </table>
+            </details>
+        </details>
+    </main>
+</body>
+</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
