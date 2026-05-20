@@ -2,6 +2,13 @@ from db_handler.connection import get_connection
 import bcrypt
 import datetime
 
+class User:
+    def __init__(self, id, username, password, created_at):
+        self.id = id
+        self.username = username
+        self.password = password
+        self.created_at = created_at
+
 def get_all_users():
     conn = get_connection()
     cursor = conn.cursor()
@@ -18,6 +25,18 @@ def create(username, password):
     conn.close()
 
     return id
+
+def get(query):
+    conn = get_connection()
+    cursor.cursor()
+    if query.isdigit():
+        cursor.execute("SELECT * FROM users WHERE id = ?", (query,))
+    else:
+        cursor.execute("SELECT * FROM users WHERE username = ?", (query,))
+    row = cursor.fetchone()
+    user = User(row[0], row[1], row[2], row[3]) if row else None
+    conn.close()
+    return user
 
 
 def hash_password(password):
