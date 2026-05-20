@@ -1,3 +1,9 @@
+# 📖 Inhoudsopgave
+
+* [⬇️ Install Process](#-install-process)
+* [📊 Database Structure](#-database-structure)
+* [</> Functions](#-functions)
+
 # ⬇️ Install Process
 
 1. Download de Laatste Release ZIP file.
@@ -109,3 +115,36 @@ pet = pets.get_by_id(                               # Krijg de pet class met de 
 | obtained_on | TEXT | Verkrijg datum |
 
 **Type:** Dynamisch
+
+---
+
+# </> Functions
+### User<sup><sub>⌛</sup></sub>: 
+- [ ] Create  
+- [ ] Delete  
+- [ ] Verify  
+- [ ] Change Password
+
+### Pets:
+- [ ] Create
+- [ ] Get Status
+- [ ] Set Status
+- [ ] Delete
+- [ ] Get All
+
+### Variants
+- [ ] Create
+- [ ] Get Stats
+- [ ] Delete
+
+### Inventory
+- [ ] Get
+- [ ] Add Item
+- [ ] Edit Quantity
+- [ ] Remove Item
+
+### Items
+- [ ] Create
+- [ ] Delete
+- [ ] Get
+- [ ] Edit
