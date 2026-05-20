@@ -20,7 +20,7 @@ pet = pets.get_by_id(                               # Krijg de pet class met de 
 
 # 📊 Database Structure
 
-## Players
+### Players
 | Column | Type | Description |
 |--------|------|-------------|
 | ID | INTEGER PRIMARY KEY | Unieke speler identificatie |
@@ -30,9 +30,9 @@ pet = pets.get_by_id(                               # Krijg de pet class met de 
 
 **Type:** Dynamisch
 
----
+-
 
-## Pets
+### Pets
 | Column | Type | Description |
 |--------|------|-------------|
 | ID | INTEGER PRIMARY KEY | Unieke pet identificatie |
@@ -47,9 +47,9 @@ pet = pets.get_by_id(                               # Krijg de pet class met de 
 
 **Type:** Dynamisch
 
----
+-
 
-## Stats
+### Stats
 | Column | Type | Description |
 |--------|------|-------------|
 | ID | INTEGER PRIMARY KEY | Unieke stat identificatie |
@@ -62,9 +62,9 @@ pet = pets.get_by_id(                               # Krijg de pet class met de 
 
 **Type:** Statisch (base stats voor pet varianten)
 
----
+-
 
-## Items
+### Items
 | Column | Type | Description |
 |--------|------|-------------|
 | ID | INTEGER PRIMARY KEY | Unieke item identificatie |
@@ -76,9 +76,9 @@ pet = pets.get_by_id(                               # Krijg de pet class met de 
 
 **Type:** Statisch (item definities)
 
----
+-
 
-## Inventory
+### Inventory
 | Column | Type | Description |
 |--------|------|-------------|
 | ID | INTEGER PRIMARY KEY | Unieke inventory entry |
