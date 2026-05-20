@@ -1,4 +1,4 @@
-[![Banner](site/banner.jpg)](https://arookiecookie.github.io/DB-Helper-NovaPets/site/)
+[![Banner](extra/banner.jpg)](https://arookiecookie.github.io/DB-Helper-NovaPets/site/)
 # 📖 Inhoudsopgave
 
 * [⬇️ Install Process](#-install-process)
