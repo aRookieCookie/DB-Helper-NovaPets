@@ -131,7 +131,7 @@ pet = pets.get_by_id(                               # Krijg de pet class met de 
 - [x] Get Status
 - [x] Set Status
 - [x] Delete
-- [ ] Get All
+- [x] Get All
 
 ### Variants<sup><sub>❌</sup></sub>:
 - [ ] Create
