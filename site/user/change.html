@@ -67,13 +67,17 @@
 
     <code>user.change_password(user_id, password)</code>
     <pre><code class="language-python">
-def change_password(id, password):
-        ```
-        # Code to change password of the user in db
-        ```
+def change_password(user_id, new_password):
+    conn = get_connection()
+    cursor = conn.cursor()
+    new_hash = hash_password(new_password)
+    cursor.execute("UPDATE users SET password_hash = ? WHERE id = ?", (new_hash, user_id))
+    conn.commit()
+    conn.close()
+    return True
 
-def hashpassword(password):
-        return bcrypt.hashpw(password, bcrypt.gensalt())
+def hash_password(password):
+    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
     </code></pre>
 
     <hr>

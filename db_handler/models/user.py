@@ -28,12 +28,13 @@ def create(username, password):
 
 def get(query):
     conn = get_connection()
-    cursor.cursor()
-    if query.isdigit():
+    cursor = conn.cursor()
+    if isinstance(query, int):
         cursor.execute("SELECT * FROM users WHERE id = ?", (query,))
     else:
         cursor.execute("SELECT * FROM users WHERE username = ?", (query,))
     row = cursor.fetchone()
+    print(row)
     user = User(row[0], row[1], row[2], row[3]) if row else None
     conn.close()
     return user
@@ -50,18 +51,22 @@ def delete(user_id):
     conn.close()
     return True
 
-def verify_password(username, password):
+def verify(username, password):
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute("SELECT password_hash FROM users WHERE username = ?", (username,))
     row = cursor.fetchone()
+    id = cursor.lastrowid
     conn.close()
 
     if row is None:
         return False
 
     stored_hash = row[0]
-    return bcrypt.checkpw(password.encode('utf-8'), stored_hash)
+    if bcrypt.checkpw(password.encode('utf-8'), stored_hash):
+        return id
+    else:
+        return False
 
 def change_password(user_id, new_password):
     conn = get_connection()

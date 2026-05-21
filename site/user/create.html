@@ -69,9 +69,14 @@
 import bcrypt
 
 def create(username, password):
-        ```
-        Code to add username and hashpassword(password) to db
-        ```
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO users (username, password_hash, created_at) VALUES (?, ?, ?)", (username, hash_password(password), datetime.datetime.now().isoformat()))
+    conn.commit()
+    id = cursor.lastrowid
+    conn.close()
+
+    return id
 
 def hashpassword(password):
         return bcrypt.hashpw(password, bcrypt.gensalt())

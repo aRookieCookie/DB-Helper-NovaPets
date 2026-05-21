@@ -66,14 +66,13 @@
     Verwijder een bestaande user.<br>
     <code>user.delete(id)</code>
     <pre><code class="language-python">
-class USER:
-    def kaas():
-        pass
-
-def delete(id):
-        ```
-        # Code to delete user in db
-        ```
+def delete(user_id):
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM users WHERE id = ?", (user_id,))
+    conn.commit()
+    conn.close()
+    return True
     </code></pre>
 
     <hr>

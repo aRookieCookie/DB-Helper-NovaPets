@@ -66,15 +66,17 @@
     Verkrijg de data die gekoppeld is aan een user doormiddel van een username of id.<br>
     <code>user.get(username/id)</code>
     <pre><code class="language-python">
-def (username):
-        if(type(username)) is int:
-            ```
-            # Code to get user info with id.
-            ```
-        else:
-            ```
-            # Code to get user info with username.
-            ```
+def get(query):
+    conn = get_connection()
+    cursor = conn.cursor()
+    if query == int:
+        cursor.execute("SELECT * FROM users WHERE id = ?", (query,))
+    else:
+        cursor.execute("SELECT * FROM users WHERE username = ?", (query,))
+    row = cursor.fetchone()
+    user = User(row[0], row[1], row[2], row[3]) if row else None
+    conn.close()
+    return user 
     </code></pre>
 
     <hr>
@@ -82,8 +84,16 @@ def (username):
     <h3>Example</h3>
     <pre><code class="language-python">
 user.get("Kaaskabouter")
+or
+user.get(5)
     </code></pre>
     <b>Returns: </b>Boilerplate Class with all user data as attributes.
+    <hr>
+
+    <h3>See:</h3>
+    <ul>
+        <li><a href="../extra/boilerplate.html">Boilerplate Classes</a></li>
+    </ul>
 </main>
 </body>
 </html>
