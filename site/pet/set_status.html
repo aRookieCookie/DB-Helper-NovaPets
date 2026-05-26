@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DB Handler Documentation</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../sidebar.css">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<sidebar>
+    <a href="../index.html" style="text-decoration:none; color: inherit;">
+        <h1>Documentatie</h1>
+    </a>
+
+    <hr>
+    <div class="links">
+        <p id="side-user"><b>Users</b><br>
+            <a href="../user/create.html" class="side-link">> Create User</a><br>
+            <a href="../user/delete.html" class="side-link">> Delete User</a><br>
+            <a href="../user/verify.html" class="side-link">> Verify User</a><br>
+            <a href="../user/change.html" class="side-link">> Change Password</a>
+            <a href="../user/get.html" class="side-link">> Get User</a>
+        </p>
+
+        <p id="side-pets-dyn"><b>Pets</b><br>
+            <a href="create.html" class="side-link">> Create New Pet</a><br>
+            <a href="get_status.html" class="side-link">> Get Pet Status</a><br>
+            <a href="set_status.html" class="side-link">> Set Pet Status</a><br>
+            <a href="delete.html" class="side-link">> Delete Pet</a><br>
+            <a href="get_all.html" class="side-link">> Get All Pets</a><br>
+        </p>
+
+        <p id="side-pets-stat"><b>Pet Variants</b><br>
+            <a href="../variant/create.html" class="side-link">> Create New Variant</a><br>
+            <a href="../variant/get_variant.html" class="side-link">> Get Variant Stats</a><br>
+            <a href="../variant/delete.html" class="side-link">> Delete Variant</a><br>
+        </p>
+
+        <p id="side-inventory"><b>Inventory</b><br>
+            <a href="../inventory/add.html" class="side-link">> Add Item</a><br>
+            <a href="../inventory/edit_quantity.html" class="side-link">> Edit Quantity</a><br>
+            <a href="../inventory/delete.html" class="side-link">> Delete Item</a><br>
+            <a href="../inventory/get_inv.html" class="side-link">> Get Inventory</a><br>
+        </p>
+
+        <p id="side-items"><b>Items</b><br>
+            <a href="../item/create.html" class="side-link">> Create New Item</a><br>
+            <a href="../item/delete.html" class="side-link">> Delete Item</a><br>
+            <a href="../item/get.html" class="side-link">> Get Item Info</a><br>
+            <a href="../item/edit.html" class="side-link">> Edit Item Info</a><br>
+        </p>
+
+        <p id="side-items"><b>Extra</b><br>
+            <a href="../extra/boilerplate.html" class="side-link">> Boilerplate Classes</a><br>
+        </p>
+    </div>
+</sidebar>
+<a href="https://github.com/rydbyte/Nova-Pets" target="_blank">
+    <img alt="Logo for Github Repo" src="../github.png" class="github-banner">
+</a>
+
+<main>
+    <h1 class="accent-color">Set Pet Status</h1>
+    Set de status/stats van de pet.<br>
+
+    <code>pets.set_status(id, stat=amount)</code>
+    <pre><code class="language-python">
+def set_status(
+    id,
+    owner_id=None,
+    docent_id=None,
+    health=None,
+    thirst=None,
+    hunger=None,
+    temp=None,
+    age=None,
+    mood=None,
+    last_seen=None,
+    naam=None
+):
+    fields = {
+        "docent_id": docent_id,
+        "health": health,
+        "thirst": thirst,
+        "hunger": hunger,
+        "temp": temp,
+        "age": age,
+        "mood": mood,
+        "last_seen": last_seen,
+        "naam": naam
+    }
+
+    updates = []
+    values = []
+
+    for column, value in fields.items():
+        if value is not None:
+            updates.append(f"{column} = ?")
+            values.append(value)
+
+    if not updates:
+        return False
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    query = f"""
+        UPDATE pets
+        SET {", ".join(updates)}
+        WHERE ID = ?
+    """
+
+    values.append(id)
+
+    cursor.execute(query, values)
+
+    conn.commit()
+    conn.close()
+
+    return True
+    </code></pre>
+
+    <hr>
+
+    <h3>Example</h3>
+    <pre><code class="language-python">
+pet.set_status(4, health=pets.get_status(4).health - 5) # Get current health, and remove 5 from it
+    </code></pre>
+    <b>Returns: </b>True
+    <hr>
+</main>
+</body>
+</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>

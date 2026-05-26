@@ -1,5 +1,4 @@
 from db_handler.connection import get_connection
-from db_handler import syslog as log
 
 # CLASS TO STORE/MODIFY PET DATA
 class Pet:
@@ -29,9 +28,8 @@ class Pet:
         cursor.execute("DELETE FROM pets WHERE id = ?", (self.id,))
         conn.commit()
         conn.close()
-        print(log.SUCCESS_DATA_DELETED)
 
-def create_pet(owner_id, docent_id, temp=20.5):
+def create(owner_id, docent_id, temp=20.5):
     conn = get_connection()
     cursor = conn.cursor()
     default_stats = look_up_stats(docent_id)
@@ -42,7 +40,6 @@ def create_pet(owner_id, docent_id, temp=20.5):
     pet_id = cursor.lastrowid
     conn.commit()
     conn.close()
-    print(log.SUCCESS_DATA_CREATED)
     return pet_id
 
 # GET PET DATA BY ID
@@ -59,7 +56,6 @@ def get_by_id(pet_id):
 
     # CHECK IF PET EXISTS
     if row is None:
-        print(log.ERROR_DATA_NOT_FOUND)
         return None
     
     # CREATE PET OBJECT WITH THE DATA FROM THE DATABASE
@@ -90,7 +86,6 @@ def look_up_stats(docent_id):
     conn.close()
 
     if row is None:
-        print(log.ERROR_DATA_NOT_FOUND)
         return None
 
     return {
@@ -101,3 +96,75 @@ def look_up_stats(docent_id):
         "hunger_multi": row["hunger_multi"],
         "mood_multi": row["mood_multi"]
     }
+
+def get_all(owner_id):
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT ID FROM pets WHERE owner_id = ?", (owner_id,))
+    rows = cursor.fetchall()
+    conn.close()
+    return [row[0] for row in rows]
+
+def delete(id):
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM pets WHERE id = ?", (id,))
+    conn.commit()
+    conn.close()
+    return True
+
+def set_status(
+    id,
+    owner_id=None,
+    docent_id=None,
+    health=None,
+    thirst=None,
+    hunger=None,
+    temp=None,
+    age=None,
+    mood=None,
+    last_seen=None,
+    naam=None
+):
+    fields = {
+        "docent_id": docent_id,
+        "health": health,
+        "thirst": thirst,
+        "hunger": hunger,
+        "temp": temp,
+        "age": age,
+        "mood": mood,
+        "last_seen": last_seen,
+        "naam": naam
+    }
+
+    updates = []
+    values = []
+
+    for column, value in fields.items():
+        if value is not None:
+            updates.append(f"{column} = ?")
+            values.append(value)
+
+    if not updates:
+        return False
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    query = f"""
+        UPDATE pets
+        SET {", ".join(updates)}
+        WHERE ID = ?
+    """
+
+    values.append(id)
+
+    cursor.execute(query, values)
+
+    conn.commit()
+    conn.close()
+
+    return True
+
+    
