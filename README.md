@@ -138,11 +138,11 @@ pet = pets.get_by_id(                               # Krijg de pet class met de 
 - [x] Get Stats
 - [x] Delete
 
-### Inventory<sup><sub>⌛</sup></sub>:
-- [ ] Get
-- [ ] Add Item
-- [ ] Edit Quantity
-- [ ] Remove Item
+### Inventory<sup><sub>✅</sup></sub>:
+- [x] Get
+- [x] Add Item
+- [x] Edit Quantity
+- [x] Remove Item
 
 ### Items<sup><sub>✅</sup></sub>:
 - [x] Create
