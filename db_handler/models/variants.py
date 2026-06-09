@@ -7,7 +7,7 @@ def create(naam, max_health, fortitude_multi, mood_multi, thirst_multi, hunger_m
                    INSERT INTO stats (naam, max_health, fortitude_multi, mood_multi, thirst_multi, hunger_multi)
                    VALUES (?, ?, ?, ?, ?, ?)
                    """, (naam, max_health, fortitude_multi, mood_multi,thirst_multi, hunger_multi))
-    varient_id = pet_id = cursor.lastrowid
+    varient_id = cursor.lastrowid
     conn.commit()
     conn.close()
     return varient_id

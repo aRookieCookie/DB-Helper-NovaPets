@@ -54,17 +54,16 @@ def delete(user_id):
 def verify(username, password):
     conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT password_hash FROM users WHERE username = ?", (username,))
+    cursor.execute("SELECT id, password_hash FROM users WHERE username = ?", (username,))
     row = cursor.fetchone()
-    id = cursor.lastrowid
     conn.close()
 
     if row is None:
         return False
 
-    stored_hash = row[0]
+    user_id, stored_hash = row
     if bcrypt.checkpw(password.encode('utf-8'), stored_hash):
-        return id
+        return user_id
     else:
         return False
 
