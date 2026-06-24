@@ -36,7 +36,7 @@ def get(item_id):
     } 
 
 def edit(item_id, name, value):
-    conn = get_connection
+    conn = get_connection()
     cursor = conn.cursor()
     
     if name in ["naam", "type", "health_effect", "hunger_effect", "dorst_effect", "description", "cost"]:
@@ -46,3 +46,23 @@ def edit(item_id, name, value):
             return True
     else:
         print("Variable name not in table")
+
+def buy(item_id, user_id):
+    conn = get_connection
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT cost FROM items WHERE id = ?)", (item_id))
+    cost = cursor.fetchone()
+
+    if cost:
+        cursor.execute(
+        "UPDATE users SET coins = coins - ? WHERE id = ? AND coins >= ?", 
+        (cost, user_id, cost)
+    )
+        cursor.close()
+        conn.close()
+        print(f"User({user_id}) Bought a item({item_id}) for {cost}")
+    else:
+        print("cost not found")
+        cursor.close()
+        conn.close()
