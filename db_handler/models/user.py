@@ -3,11 +3,12 @@ import bcrypt
 import datetime
 
 class User:
-    def __init__(self, id, username, password, created_at):
+    def __init__(self, id, username, password, created_at, coins):
         self.id = id
         self.username = username
         self.password = password
         self.created_at = created_at
+        self.coins = coins
 
 def get_all_users():
     conn = get_connection()
@@ -19,7 +20,7 @@ def get_all_users():
 def create(username, password):
     conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO users (username, password_hash, created_at) VALUES (?, ?, ?)", (username, hash_password(password), datetime.datetime.now().isoformat()))
+    cursor.execute("INSERT INTO users (username, password_hash, created_at) VALUES (?, ?, ?, 0)", (username, hash_password(password), datetime.datetime.now().isoformat()))
     conn.commit()
     id = cursor.lastrowid
     conn.close()
@@ -35,7 +36,7 @@ def get(query):
         cursor.execute("SELECT * FROM users WHERE username = ?", (query,))
     row = cursor.fetchone()
     print(row)
-    user = User(row[0], row[1], row[2], row[3]) if row else None
+    user = User(row[0], row[1], row[2], row[3], row[4]) if row else None
     conn.close()
     return user
 

@@ -1,12 +1,12 @@
 from db_handler.connection import get_connection
 
-def create(naam, type, health_effect, hunger_effect, dorst_effect, description):
+def create(naam, type, health_effect, hunger_effect, dorst_effect, description, cost):
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute("""
                    INSERT INTO stats (naam, type, health_effect, hunger_effect, dorst_effect, description)
-                   VALUES (?, ?, ?, ?, ?, ?)
-                   """, (naam, type, health_effect, hunger_effect, dorst_effect, description))
+                   VALUES (?, ?, ?, ?, ?, ?, ?)
+                   """, (naam, type, health_effect, hunger_effect, dorst_effect, description, cost))
     item_id = cursor.lastrowid
     conn.commit()
     conn.close()
@@ -31,14 +31,15 @@ def get(item_id):
         "health_effect" : row["health_effect"],
         "hunger_effect" : row["hunger_effect"],
         "dorst_effect" : row["dorst_effect"],
-        "description" : row["description"]
+        "description" : row["description"],
+        "cost" : row["cost"]
     } 
 
 def edit(item_id, name, value):
     conn = get_connection
     cursor = conn.cursor()
     
-    if name in ["naam", "type", "health_effect", "hunger_effect", "dorst_effect", "description"]:
+    if name in ["naam", "type", "health_effect", "hunger_effect", "dorst_effect", "description", "cost"]:
             cursor.execute(f"UPDATE items SET ? = ? WHERE id = ?", (name, value, item_id))
             conn.commit()
             conn.close()
